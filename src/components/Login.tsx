@@ -1,6 +1,6 @@
 import React, { useEffect, useState, ChangeEvent } from 'react';
 import { string } from 'prop-types';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { createUser } from '../services/userAPI';
 import { UserType } from '../types';
 import Carregando from './Carregando';
@@ -9,6 +9,7 @@ function Login() {
   const [user, setUser] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { id } = useParams();
 
   const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();

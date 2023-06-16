@@ -1,21 +1,16 @@
-import React, { useEffect, useState, ChangeEvent } from 'react';
+import React, { useEffect, useState, ChangeEvent, FormEvent } from 'react';
 import { element, string } from 'prop-types';
+import { Link } from 'react-router-dom';
 import Carregando from './Carregando';
 import searchAlbumsAPI from '../services/searchAlbumsAPI';
 import { AlbumType } from '../types';
 import AlbumsShow from './Albums-show';
-
-// type SearchProps = {
-//   data: string,
-//   setData: (e:string) => void;
-// };
 
 function Search() {
   const [artist, setArtist] = useState('');
   const [albums, setAlbums] = useState<AlbumType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<AlbumType[]>([]);
-  // const navigate = useNavigate();
 
   const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
@@ -23,8 +18,7 @@ function Search() {
     console.log(artist);
   };
 
-  const handleClick = async (e) => {
-    e.preventDefault();
+  const handleClick = async () => {
     setIsLoading(true);
     // await searchAlbumsAPI({ albums });
     const result = await searchAlbumsAPI(artist);
@@ -52,12 +46,24 @@ function Search() {
         >
           Pesquisar
         </button>
+        if (data.length ===0)
+        <p>Nenhum álbum foi encontrado</p>
+        <h2>
+          Resultado de álbuns de:
+          { artist }
+
+        </h2>
         {isLoading ? <Carregando />
-          : data.map((e, index) => (<div key={ index }>
-            <AlbumsShow albums={ e } />
-
-          </div>))}
-
+          : (
+            data.map((e, index) => (
+              <Link to={ `/album/${e.collectionId}` } key={ index }>
+                <AlbumsShow albums={ e } />
+                <img src={ e.artworkUrl100 } alt="foto do album" />
+                <h2>{e.collectionName}</h2>
+                <h2>{e.artistName}</h2>
+              </Link>
+            ))
+          )}
       </label>
 
     </form>
@@ -65,22 +71,3 @@ function Search() {
 }
 
 export default Search;
-
-// {registersList
-//   && registersList.map((register, index) => (
-//     <>
-//       <div key={ index }>
-//         <a href={ register.url }>{register.serviceName}</a>
-//         <p>{register.login}</p>
-//         { checkbox ? '******' : <p>{register.senha}</p> }
-
-//       </div>
-//       <button
-//         type="button"
-//         data-testid="remove-btn"
-//         onClick={ removeRegister(index) }
-//       >
-//         Remover registro
-//       </button>
-//     </>
-//   ))}

@@ -1,14 +1,14 @@
 import { AlbumType } from '../types';
 
-// type AlbumsShowProps = {
-//   albums: {
-//     artistName: string,
-//     artworkUrl100: string,
-//     index: number,
-//   }
+type AlbumsShowProps = {
+  albums: {
+    artistName: string,
+    artworkUrl100: string,
+    artistId: number,
+  }
 
-// };
-function AlbumsShow(albums: AlbumType) {
+};
+function AlbumsShow({ albums }: AlbumsShowProps) {
   const { artistName, artworkUrl100, artistId } = albums;
   return (
     <>
