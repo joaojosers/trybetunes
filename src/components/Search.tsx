@@ -8,6 +8,7 @@ import AlbumsShow from './Albums-show';
 
 function Search() {
   const [artist, setArtist] = useState('');
+  const [input, setInput] = useState('');
   const [albums, setAlbums] = useState<AlbumType[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<AlbumType[]>([]);
@@ -23,8 +24,9 @@ function Search() {
     // await searchAlbumsAPI({ albums });
     const result = await searchAlbumsAPI(artist);
     setData(result);
+    setInput(artist);
     setArtist('');
-    console.log(data);
+    console.log(result);
     setIsLoading(false);
   };
 
@@ -46,17 +48,22 @@ function Search() {
         >
           Pesquisar
         </button>
-        if (data.length ===0)
-        <p>Nenhum álbum foi encontrado</p>
-        <h2>
-          Resultado de álbuns de:
-          { artist }
+        { data.length === 0 ? <p>Nenhum álbum foi encontrado</p> : (
+          <h2>
+            Resultado de álbuns de:
+            { ` ${input}` }
 
-        </h2>
+          </h2>
+        )}
+
         {isLoading ? <Carregando />
           : (
             data.map((e, index) => (
-              <Link to={ `/album/${e.collectionId}` } key={ index }>
+              <Link
+                to={ `/album/${e.collectionId}` }
+                key={ index }
+                data-testid={ `link-to-album-${e.collectionId}` }
+              >
                 <AlbumsShow albums={ e } />
                 <img src={ e.artworkUrl100 } alt="foto do album" />
                 <h2>{e.collectionName}</h2>
