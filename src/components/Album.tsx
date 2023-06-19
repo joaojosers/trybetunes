@@ -21,7 +21,7 @@ function Album() {
         setSongs(resSongs);
       });
     }
-  }, []);
+  }, [id]);
 
   return (
     <div>

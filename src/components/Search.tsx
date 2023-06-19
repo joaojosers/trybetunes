@@ -16,7 +16,7 @@ function Search() {
   const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setArtist(e.target.value);
-    console.log(artist);
+    // console.log(artist);
   };
 
   const handleClick = async () => {
