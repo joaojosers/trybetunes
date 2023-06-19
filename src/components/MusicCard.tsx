@@ -6,12 +6,10 @@ import emptyHeart from '../images/empty_heart.png';
 type MusicCardProps = {
   song: SongType
 };
-
 function MusicCard({ song }: MusicCardProps) {
   const [favoriteSong, setFavoriteSong] = useState(false);
 
   const handleChange = () => {
-    // e.preventDefault();
     if (!favoriteSong) {
       return setFavoriteSong(true);
     }
@@ -25,10 +23,13 @@ function MusicCard({ song }: MusicCardProps) {
         O seu navegador não suporta o elemento
         <code>audio</code>
       </audio>
-      <label htmlFor="checkbox-input" data-testid={ `checkbox-music-${song.trackId}` }>
+      <label
+        htmlFor={ `checkbox-music-${song.trackId}` }
+        data-testid={ `checkbox-music-${song.trackId}` }
+      >
         <input
           type="checkbox"
-          id="checkbox-input"
+          id={ `checkbox-music-${song.trackId}` }
           onChange={ handleChange }
           checked={ favoriteSong }
           // onChange={ () => setFavoriteSong(true) }
