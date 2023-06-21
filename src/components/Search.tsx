@@ -19,7 +19,8 @@ function Search() {
     // console.log(artist);
   };
 
-  const handleClick = async () => {
+  const handleClick = async (e:React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setIsLoading(true);
     // await searchAlbumsAPI({ albums });
     const result = await searchAlbumsAPI(artist);

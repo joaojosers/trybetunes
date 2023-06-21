@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState } from 'react';
 import { SongType } from '../types';
 import checkedHeart from '../images/checked_heart.png';
 import emptyHeart from '../images/empty_heart.png';
+import { addSong, removeSong } from '../services/favoriteSongsAPI';
 
 type MusicCardProps = {
   song: SongType
@@ -11,10 +12,30 @@ function MusicCard({ song }: MusicCardProps) {
 
   const handleChange = () => {
     if (!favoriteSong) {
+      addSong(song);
       return setFavoriteSong(true);
     }
+    removeSong(song);
     return setFavoriteSong(false);
   };
+  // const handleCheckedSong = () => {
+  //   if (!checkedFavorite) {
+  //     setCheckedFavorite(song);
+  //     return addSong(song);
+  //   }
+  //   return removeSong(song);
+  // };
+  // const handleChange = () => {
+  //   if (!favoriteSong) {
+  //     setFavoriteSong(true);
+  //   }
+  //   setFavoriteSong(false);
+  //   if (!checkedFavorite) {
+  //     setCheckedFavorite(song);
+  //     addSong(song);
+  //   }
+  //   removeSong(song);
+  // };
   return (
     <div>
       <p>{song.trackName}</p>
@@ -37,6 +58,7 @@ function MusicCard({ song }: MusicCardProps) {
         {favoriteSong ? <img src={ checkedHeart } alt="favorite" />
 
           : <img src={ emptyHeart } alt="favorite" />}
+
       </label>
     </div>
   );
