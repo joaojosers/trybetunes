@@ -18,6 +18,18 @@ function MusicCard({ song }: MusicCardProps) {
     removeSong(song);
     return setFavoriteSong(false);
   };
+  // if (checked) {
+  //   addSong(song);
+  //   return setFavoriteSong(true);
+  // }
+  // removeSong(song);
+  // return setFavoriteSong(false);
+  // if (!favoriteSong) {
+  //   addSong(song);
+  //   return setFavoriteSong(true);
+  // }
+  // removeSong(song);
+  // return setFavoriteSong(false);
   // const handleCheckedSong = () => {
   //   if (!checkedFavorite) {
   //     setCheckedFavorite(song);
@@ -52,7 +64,8 @@ function MusicCard({ song }: MusicCardProps) {
           type="checkbox"
           id={ `checkbox-music-${song.trackId}` }
           onChange={ handleChange }
-          checked={ favoriteSong }
+          // onChange={ ({ target }) => handleChange(target.checked, song) }
+          // checked={ favoriteSong }
           // onChange={ () => setFavoriteSong(true) }
         />
         {favoriteSong ? <img src={ checkedHeart } alt="favorite" />

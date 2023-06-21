@@ -5,11 +5,13 @@ import Carregando from './Carregando';
 import MusicCard from './MusicCard';
 import getMusics from '../services/musicsAPI';
 import { AlbumType, SongType } from '../types';
+import { getFavoriteSongs } from '../services/favoriteSongsAPI';
 
 function Album() {
   const { id } = useParams();
   const [album, setAlbum] = useState<AlbumType>();
   const [songs, setSongs] = useState<SongType[]>();
+  const [favoriteSong, setFavoriteSong] = useState<SongType[]>();
 
   const isLoading = album === undefined;
 
@@ -19,6 +21,11 @@ function Album() {
         const [resAlbum, ...resSongs] = response;
         setAlbum(resAlbum);
         setSongs(resSongs);
+      });
+      getFavoriteSongs().then((response) => {
+        // const [favoriteSongs] = response;
+        console.log(response);
+        setFavoriteSong(response);
       });
     }
   }, [id]);
@@ -31,6 +38,7 @@ function Album() {
           <p data-testid="artist-name">{album.artistName}</p>
           <p data-testid="album-name">{album.collectionName}</p>
           {(songs?.map((e) => <MusicCard key={ e.trackId } song={ e } />))}
+          {/* {getFavoriteSongs()} */}
         </div>
       )}
     </div>
@@ -38,3 +46,13 @@ function Album() {
 }
 
 export default Album;
+// useEffect(() => {
+//   if (id) {
+//     getFavoriteSongs().then((response) => {
+//       // const [favoriteSongs] = response;
+//       console.log(response);
+//       setFavoriteSong(response);
+//     });
+//   }
+// }, [id]);
+// getFavoriteSongs();
