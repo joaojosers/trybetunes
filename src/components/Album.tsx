@@ -11,7 +11,7 @@ function Album() {
   const { id } = useParams();
   const [album, setAlbum] = useState<AlbumType>();
   const [songs, setSongs] = useState<SongType[]>();
-  const [favoriteSong, setFavoriteSong] = useState<SongType[]>();
+  const [favoriteSong, setFavoriteSong] = useState<SongType[] | []>([]);
 
   const isLoading = album === undefined;
 
@@ -37,7 +37,11 @@ function Album() {
         <div>
           <p data-testid="artist-name">{album.artistName}</p>
           <p data-testid="album-name">{album.collectionName}</p>
-          {(songs?.map((e) => <MusicCard key={ e.trackId } song={ e } />))}
+          {(songs?.map((e) => (<MusicCard
+            key={ e.trackId }
+            song={ e }
+
+          />)))}
           {/* {getFavoriteSongs()} */}
         </div>
       )}
