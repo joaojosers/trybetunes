@@ -39,13 +39,14 @@ function Album() {
           <p data-testid="album-name">{album.collectionName}</p>
           {(songs?.map((e) => (<MusicCard
             key={ e.trackId }
-            song={ e }
-
+            musica={ e }
+            favorites={ [] }
           />)))}
           {/* {getFavoriteSongs()} */}
         </div>
       )}
     </div>
+
   );
 }
 
